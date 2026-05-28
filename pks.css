@@ -1,0 +1,127 @@
+@import url('https://googleapis.com');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+body {
+    background-image: url("img15.png");
+    min-height: 100vh;
+}
+
+/* Update your header so it stays pinned at the top and has a slight background */
+header {
+    position: fixed;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 100px;
+    display: flex;
+    justify-content: flex start;
+    align-items: center;
+    z-index: 100;
+    background-image: url("img15.png");
+}
+
+/* --- The New 3-Column Grid Layout --- */
+.parallax {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Equal Columns */
+    gap: 30px;                             /* Space between grid items */
+    padding: 160px 100px 60px 100px;       /* Top padding creates the initial 'GAP' below the Navbar */
+    align-items: center;
+    justify-items: center;
+    min-height: 100vh;
+    max-width: 1200px;                     /* Keeps everything contained nicely */
+    margin: 0 auto;     
+    overflow: hidden;                   /* Centers the grid on the page */
+}
+.logo {
+    color: #7D4F37;
+    font-size: 2em;
+    pointer-events: none;
+    margin-right: 270px;
+}
+.navigation a {
+    color: #7D4F37;
+    font-size: 1.2em;
+    text-decoration: none;
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin:0 10px;
+    font-weight: 600;
+    font-family: "Space Grotesk", sans-serif;
+}
+.navigation a:hover,
+.navigation a.active {
+    background-color: #D4A373;
+    color:  Active Links#7D4F37;
+}
+/* --- Optimized Grid for Scrolling --- */
+.parallax {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-template-rows: repeat(3, 1fr); 
+    gap: 15px; 
+    min-height: 100vh; /* Changed from height to min-height so you can scroll */
+    padding: 160px 50px 100px 50px; 
+    align-items: center;
+    justify-items: center;
+    overflow-x: hidden; /* Only hide horizontal scrollbars */
+    max-width: 1100px; 
+    margin: 0 auto; 
+}
+
+/* Central Heading Styling */
+#text {
+    color: #1C3A27;
+    font-size: 2.5em;
+    font-weight: 600;
+    text-align: center;
+    position: relative; 
+    z-index: 1; /* Keeps text layered correctly while moving */
+    will-change: transform; /* Tells the browser to optimize this animation */
+}
+.parallax img {
+    width: 100%;
+    height: 100%;
+    max-width: 250px; 
+    max-height: 23vh; 
+    object-fit: contain; 
+    background-color: transparent; 
+    transform: rotate(var(--rot, 0deg)); 
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    cursor: pointer;
+}
+#img1 { --rot: -12deg; }
+#img8 { --rot: 0deg;}
+#img2 { --rot: 15deg; }
+#img3 { --rot: 10deg; }
+#img4 { --rot: -12deg; }
+#img5 { --rot: -8deg; }
+#img6 { --rot: 0deg; } /* Straight */
+#img7 { --rot: 12deg; }
+.sec {
+    position:relative;
+    background-image: url("img15.png");
+    padding: 100px;
+}
+.sec h2 {
+    font-size:3em;
+    color:#1C3A27;
+    margin-bottom: 20px;
+}
+.sec p{
+    font-size: 1em;
+    color: #2B2625;
+    font-weight: 175;
+}
+#img1, #img2, #img3, #img4, #img5, #img6, #img7, #img8 {
+    transition: none !important;
+}
+html {
+    scroll-behavior: smooth;
+}

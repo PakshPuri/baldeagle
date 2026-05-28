@@ -125,3 +125,65 @@ header {
 html {
     scroll-behavior: smooth;
 }
+/* Layout Container */
+.layout-container {
+    display: grid;
+    grid-template-columns: 1fr auto; 
+    gap: 40px;                       /* Increased gap slightly for a cleaner look */
+    align-items: stretch;            
+    width: 100%;
+    max-width: 1000px;                
+    margin: 0 auto;            
+}
+
+.left-text {
+    margin: 0;                       
+    line-height: 1.6;
+    font-size: 1.1rem;               /* Makes text highly readable next to large images */
+}
+
+/* Slider Core Layout */
+.slider {
+    /* --- SPEED CONTROL HUB --- */
+    --speed: 25s;                    /* 1. SLOW DOWN: Increase this number (e.g., 30s, 40s) to make it even slower */
+    
+    width: var(--width);
+    position: relative;              
+    overflow: hidden;                
+}
+
+.slider .list {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;                        
+}
+
+.slider .list .item {
+    width: var(--width);
+    height: var(--height);
+    position: absolute;
+    top: 100%;                       
+    
+    /* Uses the speed variable automatically for perfect looping math */
+    animation: autoRunY var(--speed) linear infinite;
+    animation-delay: calc((var(--speed) / var(--quantity)) * (var(--quantity) - var(--position)) * -1);
+}
+
+.slider .list .item img {
+    width: 100%;
+    height: 100%;
+    /* 2. FULLY SHOW IMAGES: 'contain' ensures the whole graphic fits inside the box without clipping */
+    object-fit: contain;               
+}
+
+/* Vertical Animation Track */
+@keyframes autoRunY {
+    from {
+        top: 100%;
+    }
+    to {
+        top: calc(var(--height) * -1); 
+    }
+}

@@ -187,3 +187,106 @@ html {
         top: calc(var(--height) * -1); 
     }
 }
+.man {
+    width: 100%;
+    height: 70%;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+.man .boy{
+    position: absolute;
+    width: 200px;
+    height: 250px;
+    top: 10%;
+    /* 1. FIX: Changed "clac" to "calc" */
+    left: calc(50% - 100px); 
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    animation: autoRun 20s linear infinite;
+}
+@keyframes autoRun {
+    from{
+        transform: perspective(1000px) rotateX(-8deg) rotateY(0deg);
+    }
+    to {
+        transform: perspective(1000px) rotateX(-8deg) rotateY(360deg);
+    }
+}
+.man .boy .guy {
+    position: absolute;
+    inset: 0 0 0 0;
+    transform:
+        rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * -1deg))
+        translateZ(450px);
+}
+.man .boy .guy .cool-box {
+    width: 100%;
+    height: 100%;
+    /* 2. FIX: Changed "cover" to "contain" */
+    object-fit: contain; 
+}
+/* Pauses the auto-rotation when hovering over the container */
+.man:hover .boy {
+    animation-play-state: paused;
+}
+.has{
+    text-align: center;
+}
+/* The Main Box Container */
+.cool-box {
+    width: 380px;
+    background-color: #1a1c23;
+    font-family: 'Courier New', Courier, monospace;
+    
+    /* Technical Grid Pattern Effect */
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    
+    /* Sharp Double Border Effect */
+    border: 4px solid #00ffaa;
+    outline: 4px solid #1a1c23;
+    box-sizing: border-box;
+    margin: 20px; /* Adds basic spacing around the box on your page */
+}
+
+/* Diagonal Striped Header Accent */
+.box-header {
+    background: repeating-linear-gradient(
+        45deg,
+        #ff0055,
+        #ff0055 10px,
+        #00ffaa 10px,
+        #00ffaa 20px
+    );
+    height: 15px;
+    border-bottom: 4px solid #00ffaa;
+}
+
+/* Content Area */
+.box-body {
+    padding: 25px;
+    color: #ffffff;
+}
+
+/* Content Header */
+.box-title {
+    color: #00ffaa;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px dashed #ff0055;
+    padding-bottom: 8px;
+}
+
+/* Content Text */
+.box-text {
+    line-height: 1.6;
+    font-size: 0.95rem;
+    color: #b3b9c9;
+    margin: 0;
+}

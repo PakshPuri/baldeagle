@@ -220,7 +220,7 @@ html {
         rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * -1deg))
         translateZ(450px);
 }
-.man .boy .guy .cool-box {
+.man .boy .guy .article-box {
     width: 100%;
     height: 100%;
     /* 2. FIX: Changed "cover" to "contain" */
@@ -233,60 +233,71 @@ html {
 .has{
     text-align: center;
 }
-/* The Main Box Container */
-.cool-box {
-    width: 380px;
-    background-color: #1a1c23;
-    font-family: 'Courier New', Courier, monospace;
+/* Container for the article box */
+.article-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px; /* Reduced gap */
     
-    /* Technical Grid Pattern Effect */
-    background-image: 
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
+    /* Semi-transparent so your paper background (img15.png) shows through */
+    background-color: rgba(255, 255, 255, 0.4); 
     
-    /* Sharp Double Border Effect */
-    border: 4px solid #00ffaa;
-    outline: 4px solid #1a1c23;
-    box-sizing: border-box;
-    margin: 20px; /* Adds basic spacing around the box on your page */
+    /* Thinner, ink-like border using your Warm Brown */
+    border: 1px solid #7D4F37; 
+    border-radius: 8px;
+    padding: 20px; /* Reduced padding */
+    
+    max-width: 650px; /* Shrank the overall width */
+    margin: 30px auto;
+    font-family: "Space Grotesk", sans-serif;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05); /* Softer shadow */
 }
 
-/* Diagonal Striped Header Accent */
-.box-header {
-    background: repeating-linear-gradient(
-        45deg,
-        #ff0055,
-        #ff0055 10px,
-        #00ffaa 10px,
-        #00ffaa 20px
-    );
-    height: 15px;
-    border-bottom: 4px solid #00ffaa;
+/* Content wrapper */
+.article-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Ensures text naturally fills the left side */
 }
 
-/* Content Area */
-.box-body {
-    padding: 25px;
-    color: #ffffff;
-}
-
-/* Content Header */
-.box-title {
-    color: #00ffaa;
+/* Heading styling */
+.article-title {
+    color: #1C3A27; 
+    font-size: 1.5em; /* Scaled down from 2em */
+    font-weight: 600;
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.4rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-bottom: 2px dashed #ff0055;
-    padding-bottom: 8px;
+    margin-bottom: 10px;
 }
 
-/* Content Text */
-.box-text {
-    line-height: 1.6;
-    font-size: 0.95rem;
-    color: #b3b9c9;
+/* Paragraph styling */
+.article-text {
+    color: #2B2625; 
+    font-size: 0.95em; /* Scaled down slightly */
+    line-height: 1.5;
     margin: 0;
+}
+
+/* Side image styling */
+.article-img {
+    width: 180px; /* Shrank the image */
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+    border: 1px solid rgba(125, 79, 55, 0.2); /* Very faint border to ground the image */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .article-box {
+        flex-direction: column-reverse; /* Keeps text above image on small screens */
+        align-items: center;
+        text-align: center;
+    }
+    
+    .article-img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px; /* Adds space when stacked */
+    }
 }

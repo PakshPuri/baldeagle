@@ -10,146 +10,181 @@
 body {
     background-image: url("img15.png");
     min-height: 100vh;
+
 }
 
-/* Update your header so it stays pinned at the top and has a slight background */
 header {
-    position: fixed;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     padding: 30px 100px;
     display: flex;
-    justify-content: flex start;
+    justify-content: flex-start;
     align-items: center;
     z-index: 100;
     background-image: url("img15.png");
 }
 
-/* --- The New 3-Column Grid Layout --- */
 .parallax {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 Equal Columns */
-    gap: 30px;                             /* Space between grid items */
-    padding: 160px 100px 60px 100px;       /* Top padding creates the initial 'GAP' below the Navbar */
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 15px;
+    min-height: 100vh;
+    padding: 160px 50px 100px 50px;
     align-items: center;
     justify-items: center;
-    min-height: 100vh;
-    max-width: 1200px;                     /* Keeps everything contained nicely */
-    margin: 0 auto;     
-    overflow: hidden;                   /* Centers the grid on the page */
+    overflow-x: hidden;
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow-y: hidden;
 }
+
 .logo {
     color: #7D4F37;
     font-size: 2em;
-    pointer-events: none;
     margin-right: 270px;
 }
+
 .navigation a {
     color: #7D4F37;
     font-size: 1.2em;
     text-decoration: none;
     padding: 6px 15px;
     border-radius: 20px;
-    margin:0 10px;
+    margin: 0 10px;
     font-weight: 600;
     font-family: "Space Grotesk", sans-serif;
 }
+
 .navigation a:hover,
 .navigation a.active {
     background-color: #D4A373;
-    color:  Active Links#7D4F37;
-}
-/* --- Optimized Grid for Scrolling --- */
-.parallax {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    grid-template-rows: repeat(3, 1fr); 
-    gap: 15px; 
-    min-height: 100vh; /* Changed from height to min-height so you can scroll */
-    padding: 160px 50px 100px 50px; 
-    align-items: center;
-    justify-items: center;
-    overflow-x: hidden; /* Only hide horizontal scrollbars */
-    max-width: 1100px; 
-    margin: 0 auto; 
+    color: #7D4F37;
 }
 
-/* Central Heading Styling */
 #text {
     color: #1C3A27;
     font-size: 2.5em;
     font-weight: 600;
     text-align: center;
-    position: relative; 
-    z-index: 1; /* Keeps text layered correctly while moving */
-    will-change: transform; /* Tells the browser to optimize this animation */
+    position: relative;
+    z-index: 1;
+    will-change: transform;
 }
+
 .parallax img {
     width: 100%;
     height: 100%;
-    max-width: 250px; 
-    max-height: 23vh; 
-    object-fit: contain; 
-    background-color: transparent; 
-    transform: rotate(var(--rot, 0deg)); 
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    max-width: 250px;
+    max-height: 23vh;
+    object-fit: contain;
+    background-color: transparent;
+    transform: rotate(var(--rot, 0deg));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
 }
+
 #img1 { --rot: -12deg; }
-#img8 { --rot: 0deg;}
+#img8 { --rot: 0deg; }
 #img2 { --rot: 15deg; }
 #img3 { --rot: 10deg; }
 #img4 { --rot: -12deg; }
 #img5 { --rot: -8deg; }
-#img6 { --rot: 0deg; } /* Straight */
+#img6 { --rot: 0deg; }
 #img7 { --rot: 12deg; }
+
+#img1, #img2, #img3, #img4, #img5, #img6, #img7, #img8 {
+    transition: none !important;
+}
+
 .sec {
-    position:relative;
+    position: relative;
     background-image: url("img15.png");
     padding: 100px;
 }
+
 .sec h2 {
-    font-size:3em;
-    color:#1C3A27;
+    font-size: 3em;
+    color: #1C3A27;
     margin-bottom: 20px;
 }
-.sec p{
+
+.sec p {
     font-size: 1em;
     color: #2B2625;
     font-weight: 175;
 }
-#img1, #img2, #img3, #img4, #img5, #img6, #img7, #img8 {
-    transition: none !important;
-}
 html {
     scroll-behavior: smooth;
 }
-/* Layout Container */
+/* Step A: Lock the root window down so it cannot scroll natively */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Erases the primary white gutter completely */
+}
+
+/* Step B: Create a full-screen scroll container */
+.app-scrollbar-wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll; /* Handles your site's vertical scrolling mechanics */
+  
+  /* Apply your textured crinkled paper background asset globally here */
+  background-image: url('your-paper-texture-file.png'); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: local; /* Scrolls smoothly inline with your content */
+}
+
+/* Step C: Inject the exact same texture into the WebKit scroll track! */
+.app-scrollbar-wrapper::-webkit-scrollbar {
+  width: 14px;
+}
+
+.app-scrollbar-wrapper::-webkit-scrollbar-track {
+  /* Copy your exact paper asset URL route right into the track element */
+  background-image: url('your-paper-texture-file.png');
+  background-position: right top; /* Aligns texture flawlessly to the right edge */
+  background-size: cover;
+}
+
+/* Step D: Style your clean dark brown draggable scroll handle */
+.app-scrollbar-wrapper::-webkit-scrollbar-thumb {
+  background-color: #4a3329; /* Matches your dark brown heading layout color */
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 10px;
+}
+
+.app-scrollbar-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #2b1e18;
+}
+
 .layout-container {
     display: grid;
-    grid-template-columns: 1fr auto; 
-    gap: 40px;                       /* Increased gap slightly for a cleaner look */
-    align-items: stretch;            
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: stretch;
     width: 100%;
-    max-width: 1000px;                
-    margin: 0 auto;            
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .left-text {
-    margin: 0;                       
+    margin: 0;
     line-height: 1.6;
-    font-size: 1.1rem;               /* Makes text highly readable next to large images */
+    font-size: 1.1rem;
 }
 
-/* Slider Core Layout */
 .slider {
-    /* --- SPEED CONTROL HUB --- */
-    --speed: 25s;                    /* 1. SLOW DOWN: Increase this number (e.g., 30s, 40s) to make it even slower */
-    
+    --speed: 25s;
     width: var(--width);
-    position: relative;              
-    overflow: hidden;                
+    position: relative;
+    overflow: hidden;
 }
 
 .slider .list {
@@ -157,16 +192,14 @@ html {
     top: 0;
     bottom: 0;
     left: 0;
-    right: 0;                        
+    right: 0;
 }
 
 .slider .list .item {
     width: var(--width);
     height: var(--height);
     position: absolute;
-    top: 100%;                       
-    
-    /* Uses the speed variable automatically for perfect looping math */
+    top: 100%;
     animation: autoRunY var(--speed) linear infinite;
     animation-delay: calc((var(--speed) / var(--quantity)) * (var(--quantity) - var(--position)) * -1);
 }
@@ -174,130 +207,440 @@ html {
 .slider .list .item img {
     width: 100%;
     height: 100%;
-    /* 2. FULLY SHOW IMAGES: 'contain' ensures the whole graphic fits inside the box without clipping */
-    object-fit: contain;               
+    object-fit: contain;
 }
 
-/* Vertical Animation Track */
 @keyframes autoRunY {
-    from {
-        top: 100%;
-    }
-    to {
-        top: calc(var(--height) * -1); 
-    }
+    from { top: 100%; }
+    to   { top: calc(var(--height) * -1); }
 }
+
+/* --- 3D CAROUSEL MECHANICS --- */
 .man {
     width: 100%;
-    height: 70%;
+    height: 651px; /* 1. Changed from 105svh to a fixed height that fits your 300px cards comfortably */
+    margin-top: 5px; /* 2. Controls exactly how close the cards get to your "Projects" heading */
     text-align: center;
     overflow: hidden;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.man .boy{
-    position: absolute;
-    width: 200px;
-    height: 250px;
-    top: 10%;
-    /* 1. FIX: Changed "clac" to "calc" */
-    left: calc(50% - 100px); 
+.man .boy {
+    position: relative;
+    /* 1. Made the cards significantly smaller so they fit on standard screens */
+    width: 260px; 
+    height: 300px; 
     transform-style: preserve-3d;
     transform: perspective(1000px);
-    animation: autoRun 20s linear infinite;
+    animation: autoRun 40s linear infinite; 
 }
+
 @keyframes autoRun {
-    from{
-        transform: perspective(1000px) rotateX(-8deg) rotateY(0deg);
-    }
-    to {
-        transform: perspective(1000px) rotateX(-8deg) rotateY(360deg);
-    }
+    from { transform: perspective(1000px) rotateX(-8deg) rotateY(0deg); }
+    to   { transform: perspective(1000px) rotateX(-8deg) rotateY(360deg); }
 }
+
 .man .boy .guy {
     position: absolute;
-    inset: 0 0 0 0;
-    transform:
-        rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * -1deg))
-        translateZ(450px);
+    inset: 0;
+    /* 2. Pulled the cards closer together (from 550px to 380px radius) so it doesn't bleed off screen */
+    transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * -1deg)) translateZ(380px); 
 }
-.man .boy .guy .article-box {
-    width: 100%;
-    height: 100%;
-    /* 2. FIX: Changed "cover" to "contain" */
-    object-fit: contain; 
-}
-/* Pauses the auto-rotation when hovering over the container */
-.man:hover .boy {
+
+.man .boy:hover {
     animation-play-state: paused;
 }
-.has{
-    text-align: center;
-}
-/* Container for the article box */
+
+
+/* --- NEWSPAPER CARD LAYOUT --- */
 .article-box {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px; /* Reduced gap */
-    
-    /* Semi-transparent so your paper background (img15.png) shows through */
-    background-color: rgba(255, 255, 255, 0.4); 
-    
-    /* Thinner, ink-like border using your Warm Brown */
-    border: 1px solid #7D4F37; 
-    border-radius: 8px;
-    padding: 20px; /* Reduced padding */
-    
-    max-width: 650px; /* Shrank the overall width */
-    margin: 30px auto;
+    display: block; 
+    background-color: #E7D9C9; /* Slightly more solid to hide background overlap */
+    border: 1px solid #7D4F37;
+    padding: 15px; /* Tighter padding for a smaller box */
+    width: 100%; 
+    height: 100%; 
+    box-sizing: border-box; 
     font-family: "Space Grotesk", sans-serif;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05); /* Softer shadow */
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden; 
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    text-align: left; 
+    cursor: pointer; /* Makes it obvious the card can be clicked */
+    display: block; 
+    background-color: #fbe1ca;
 }
 
-/* Content wrapper */
-.article-content {
-    display: flex;
-    flex-direction: column;
-    flex: 1; /* Ensures text naturally fills the left side */
-}
-
-/* Heading styling */
 .article-title {
-    color: #1C3A27; 
-    font-size: 1.5em; /* Scaled down from 2em */
+    color: #1C3A27;
+    font-size: 1.2em; /* Smaller font */
     font-weight: 600;
     margin-top: 0;
     margin-bottom: 10px;
+    text-align: center; 
+    border-bottom: 2px solid #7D4F37; 
+    padding-bottom: 5px;
 }
 
-/* Paragraph styling */
-.article-text {
-    color: #2B2625; 
-    font-size: 0.95em; /* Scaled down slightly */
-    line-height: 1.5;
-    margin: 0;
-}
-
-/* Side image styling */
 .article-img {
-    width: 180px; /* Shrank the image */
-    height: 150px;
+    float: right; 
+    margin-left: 15px;
+    margin-bottom: 5px;
+    /* 3. Scaled down the image so text has more room to wrap */
+    width: 110px;
+    height: 90px;
     object-fit: cover;
     border-radius: 6px;
-    flex-shrink: 0;
-    border: 1px solid rgba(125, 79, 55, 0.2); /* Very faint border to ground the image */
+    border: 1px solid rgba(125, 79, 55, 0.2);
+    transform: translateZ(0); 
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 600px) {
-    .article-box {
-        flex-direction: column-reverse; /* Keeps text above image on small screens */
-        align-items: center;
-        text-align: center;
-    }
+.article-text {
+    color: #2B2625;
+    font-size: 0.85em; 
+    line-height: 1.4;
+    margin: 0;
     
-    .article-img {
-        width: 100%;
+    /* THE FIX: Switch to left alignment. Justify is what caused the massive gap! */
+    text-align: left; 
+    
+    /* Optional newspaper trick: allows the browser to add hyphens to long words instead of breaking the whole word down a line */
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto; 
+}
+
+/* Mobile override for small screens */
+@media (max-width: 600px) {
+    .man .boy {
+        width: 280px; 
         height: auto;
-        margin-bottom: 15px; /* Adds space when stacked */
+        min-height: 250px;
     }
+    .man .boy .guy {
+        transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * -1deg)) translateZ(250px);
+    }
+    .article-img {
+        float: none;
+        display: block;
+        width: 100%;
+        height: 120px;
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+}
+/* Robot */
+.robot-wrapper {
+    position: relative;
+    width: 500px;
+    height: 100px;
+    margin: 100px auto;
+}
+
+.robot-body {
+    position: absolute;
+    width: 350px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.robot-arm {
+    position: absolute;
+    width: 350px;       
+    top: -95%;           /* Keep your current resting position */
+    left: 14%;          
+    z-index: 2; 
+
+    /* ================= THE PIVOT ================= */
+    /* We use exact pixels. X (from left) and Y (from top) */
+    transform-origin: 233px 155px; 
+    /* ============================================= */
+
+    transition: transform 0s ease-out;
+
+}
+
+    /* Pivot at the shoulder joint — tweak these % values to match your img10.png */
+
+/* Hidden by default, covers the entire viewport */
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    inset: 0;
+    background-color: rgba(28, 58, 39, 0.4); /* Dark translucent version of your dark green */
+    backdrop-filter: blur(8px); /* Blurs the 3D spinning background beautifully */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* When active, trigger the view */
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* The actual expanded card window */
+.modal-content {
+    background-color: #fbe1ca; /* Matches your newspaper card color */
+    border: 2px solid #7D4F37;
+    border-radius: 12px;
+    padding: 30px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    
+    /* Smooth scale-up animation */
+    transform: scale(0.7);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+/* Close Button (X) */
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: #7D4F37;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* YouTube style Escape hint */
+.escape-hint {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: sans-serif;
+    font-size: 0.85em;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.modal-overlay.active .escape-hint {
+    opacity: 1;
+    animation: fadeOutHint 3s forwards 1.5s; /* Fades out after a few seconds just like YT */
+}
+
+@keyframes fadeOutHint {
+    to { opacity: 0; }
+}
+.has {
+    text-align: center;
+}
+
+
+/*this website will go down in history i tell you*/
+/*idek bro its 4am*/
+.AYELISTENTOTHIS{
+    display: block; 
+    background-color: #e7d9c950; /* Slightly more solid to hide background overlap */
+    border: 1px solid #7d4f3770;
+    padding: 15px; /* Tighter padding for a smaller box */
+    width: 100%; 
+    height: 80%; 
+    box-sizing: border-box; 
+    font-family: "Space Grotesk", sans-serif;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden; 
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    text-align: left; 
+    display: block; 
+}
+
+.RAPKATHAMAUSAM {
+    color: #1C3A27;
+    font-size: 2.2em; /* Smaller font */
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center; 
+    border-bottom: 2px solid #7D4F37; 
+    padding-bottom: 5px;
+}
+
+.ITNEMEINTUJHELAGGAYITHAND {
+    float: right; 
+    margin-left: 15px;
+    margin-bottom: 5px;
+    /* 3. Scaled down the image so text has more room to wrap */
+    width: 110px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(125, 79, 55, 0.2);
+    transform: translateZ(0); 
+}
+
+.LAADLEISS-SETHANDETOUSKEREPLYTHE {
+    color: #2B2625;
+    font-size: 0.85em; 
+    line-height: 1.4;
+    margin: 0;
+    
+    /* THE FIX: Switch to left alignment. Justify is what caused the massive gap! */
+    text-align: left; 
+    
+    /* Optional newspaper trick: allows the browser to add hyphens to long words instead of breaking the whole word down a line */
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto; 
+}
+.HOPLAYIVO-HUMHIPLAYETHE {
+  display: flex;
+  align-items: center; /* Aligns vertically */
+  gap: 15px; /* Spacing between image and text */
+}
+/*this shit has taken way too much time off my life*/
+/* Center the form container on your textured paper background */
+.contact-form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  /* Soft, semi-transparent cream container overlay */
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  font-family: inherit;
+}
+
+/* Style the form title to match your dark green heading */
+.form-title {
+  color: #1b3322; /* Matches your visual header palette */
+  margin-bottom: 25px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* Force each input label and field onto its own distinct row */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+/* Style the text labels */
+.form-group label {
+  color: #4a3329; /* Matches your dark brown text color */
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+/* Style the input text boxes and the textarea container */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid rgba(74, 51, 41, 0.3); /* Subtle brown border outline */
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.6); /* Semi-clear internal field backing */
+  color: #2b1e18;
+  font-size: 1rem;
+  box-sizing: border-box; /* Fixes elements running off the screen margin */
+  transition: all 0.3s ease;
+}
+
+/* Smooth visual highlight effect when a user clicks into a field */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #1b3322; /* Switches to your accent green */
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 8px rgba(27, 51, 34, 0.15);
+}
+
+/* Style your call-to-action Send Message button */
+.submit-btn {
+  width: 100%;
+  background-color: #1b3322; /* Deep green primary fill */
+  color: #ffffff;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Darken button color and add a slight pop effect when hovered */
+.submit-btn:hover {
+  background-color: #122217;
+  transform: translateY(-1px);
+}
+
+.submit-btn:active {
+  transform: translateY(1px); /* Pushes down cleanly when clicked */
+}
+/* Toast fixed center placement overlay config */
+#success-toast {
+  position: fixed;
+  top: 10%; /* Places it near the top center just like the Fullscreen notice */
+  left: 50%;
+  transform: translate(-50%, -50px);
+  background: rgba(30, 30, 30, 0.9); /* Dark background theme */
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 25px; /* Smooth rounded pill shape */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  font-family: inherit;
+  font-size: 0.95rem;
+  z-index: 9999; /* Forces it over all other design layers */
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+}
+
+/* Flex item adjustments inside the pill container */
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Green checkmark indicator style */
+.toast-icon {
+  width: 20px;
+  height: 20px;
+  fill: #4caf50;
+}
+
+/* Class injected via JavaScript to slide down and fade in */
+#success-toast.toast-show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+/* Forcefully hide the honeypot field across all screen sizes and browsers */
+.honeypot-field {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  z-index: -9999 !important;
 }

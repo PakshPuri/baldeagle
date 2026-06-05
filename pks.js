@@ -1,147 +1,151 @@
-const img1        = document.getElementById('img1');
-const img2        = document.getElementById('img2');
-const img3        = document.getElementById('img3');
-const img4        = document.getElementById('img4');
-const img5        = document.getElementById('img5');
-const img6        = document.getElementById('img6');
-const img7        = document.getElementById('img7');
-const img8        = document.getElementById('img8');
-const text        = document.getElementById('text');
-const robotArm    = document.querySelector('.robot-arm');
-const robotSection = document.getElementById('projects');
-const navLinks    = document.querySelectorAll('.navigation a');
-const sections    = document.querySelectorAll('section');
+document.addEventListener('DOMContentLoaded', () => {
 
-window.addEventListener('scroll', () => {
-    const value = window.scrollY;
+    // ─── ELEMENTS ────────────────────────────────────────────────────────────
+    const wrapper      = document.querySelector('.app-scrollbar-wrapper');
+    const img1         = document.getElementById('img1');
+    const img2         = document.getElementById('img2');
+    const img3         = document.getElementById('img3');
+    const img4         = document.getElementById('img4');
+    const img5         = document.getElementById('img5');
+    const img6         = document.getElementById('img6');
+    const img7         = document.getElementById('img7');
+    const img8         = document.getElementById('img8');
+    const text         = document.getElementById('text');
+    const robotArm     = document.querySelector('.robot-arm');
+    const robotSection = document.getElementById('projects');
+    const navLinks     = document.querySelectorAll('.navigation a');
+    const sections     = document.querySelectorAll('section');
 
-    // --- Parallax ---
-    text.style.transform = `translateY(${value * 0.8}px)`;
-    img1.style.transform  = `translate(${value * -0.5}px, ${value * -0.5}px) rotate(var(--rot))`;
-    img2.style.transform  = `translate(${value *  0.5}px, ${value * -0.5}px) rotate(var(--rot))`;
-    img3.style.transform  = `translate(${value * -0.5}px, ${value *  0.3}px) rotate(var(--rot))`;
-    img4.style.transform  = `translate(${value *  0.5}px, ${value *  0.3}px) rotate(var(--rot))`;
-    img5.style.transform  = `translate(${value * -0.5}px, ${value *  0.5}px) rotate(var(--rot))`;
-    img6.style.transform  = `translateY(${value * 0.9}px) rotate(var(--rot))`;
-    img7.style.transform  = `translate(${value *  0.8}px, ${value *  0.5}px) rotate(var(--rot))`;
-    img8.style.transform  = `translateY(${value * -0.3}px) rotate(var(--rot))`;
+    // ─── SCROLL ───────────────────────────────────────────────────────────────
+    // The CSS sets html/body to overflow:hidden and scrolls via .app-scrollbar-wrapper.
+    // BUT if the CSS ever fails to load, window scrolls instead.
+    // Solution: listen to both and read whichever gives a real value.
+    // Scroll events don't bubble, so only one listener will ever fire at a time.
 
-    // --- Robot arm ---
+    function handleScroll() {
+        const value = (wrapper ? wrapper.scrollTop : 0) || window.scrollY || 0;
 
-    // --- Active nav link ---
-    let current = '';
-    sections.forEach(sec => {
-        if (value >= sec.offsetTop - sec.clientHeight * 0.3) {
-            current = sec.getAttribute('id');
-        }
-    });
-    navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-    });
-});
-window.addEventListener('scroll', () => {
-    // Get the robot's real-time position relative to the viewport
-    const rect = robotSection.getBoundingClientRect();
-    
-    // ONLY animate if the robot is actually visible on the screen
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-        
-        // 1. SCREEN PROGRESS MATH (0 = enters bottom of screen, 1 = leaves top of screen)
-        const totalDistance  = window.innerHeight + rect.height;
-        const currentDistance = window.innerHeight - rect.top;
-        const progress        = Math.max(0, Math.min(1, currentDistance / totalDistance));
-        
-        // 2. THE WAVE FREQUENCY
-        // Because the screen is large, let's bump it up to 5 or 6 waves 
-        // so it keeps hyperactively waving the entire time it passes by!
-        const waveCount = 6; 
-        const wave      = Math.abs(Math.sin(progress * Math.PI * waveCount));
-        
-        // 3. THE WAVE ANGLE
-        robotArm.style.transform = `rotate(${wave * -40}deg)`;
-    }
-});
-// 1. Your custom expanded content configurations
-const projectDetails = {
-    "1": `
-        <h2 style="color: #1C3A27; border-bottom: 2px solid #7D4F37; padding-bottom: 10px;">Project One Deep Dive</h2>
-        <p style="color: #2B2625; line-height: 1.6; margin-top: 15px;">This is your expanded project showcase area!</p>
-    `,
-    "2": `
-        <h2 style="color: #1C3A27; border-bottom: 2px solid #7D4F37; padding-bottom: 10px;">Project Two Deep Dive</h2>
-        <p style="color: #2B2625; line-height: 1.6; margin-top: 15px;">Details for project two go here.</p>
-    `
-};
+        // Parallax
+        if (text)  text.style.transform  = `translateY(${value * 0.8}px)`;
+        if (img1)  img1.style.transform  = `translate(${value * -0.5}px, ${value * -0.5}px) rotate(var(--rot))`;
+        if (img2)  img2.style.transform  = `translate(${value *  0.5}px, ${value * -0.5}px) rotate(var(--rot))`;
+        if (img3)  img3.style.transform  = `translate(${value * -0.5}px, ${value *  0.3}px) rotate(var(--rot))`;
+        if (img4)  img4.style.transform  = `translate(${value *  0.5}px, ${value *  0.3}px) rotate(var(--rot))`;
+        if (img5)  img5.style.transform  = `translate(${value * -0.5}px, ${value *  0.5}px) rotate(var(--rot))`;
+        if (img6)  img6.style.transform  = `translateY(${value * 0.9}px) rotate(var(--rot))`;
+        if (img7)  img7.style.transform  = `translate(${value *  0.8}px, ${value *  0.5}px) rotate(var(--rot))`;
+        if (img8)  img8.style.transform  = `translateY(${value * -0.3}px) rotate(var(--rot))`;
 
-// 2. Wait for the HTML document to fully load before running the code
-document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById('projectModal');
-    const modalBody = document.getElementById('modalBody');
-    const closeBtn = document.querySelector('.modal-close');
-
-    // Safety check: Make sure the modal HTML actually exists on the page
-    if (!modal || !modalBody) return;
-
-    // 3. Attach click event listeners to all your project cards
-    document.querySelectorAll('.article-box').forEach((card, index) => {
-        // Automatically assigns an ID fallback if you didn't add data-project="1" in HTML
-        if (!card.getAttribute('data-project')) {
-            card.setAttribute('data-project', (index + 1).toString());
+        // Robot arm (getBoundingClientRect is always viewport-relative, works either way)
+        if (robotArm && robotSection) {
+            const rect = robotSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const totalDistance   = window.innerHeight + rect.height;
+                const currentDistance = window.innerHeight - rect.top;
+                const progress        = Math.max(0, Math.min(1, currentDistance / totalDistance));
+                const wave            = Math.abs(Math.sin(progress * Math.PI * 6));
+                robotArm.style.transform = `rotate(${wave * -40}deg)`;
+            }
         }
 
-        card.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevents 3D environment selection glitches
-            
-            const projectId = card.getAttribute('data-project');
-            
-            // Populate and open modal
-            modalBody.innerHTML = projectDetails[projectId] || `<h2>Project ${projectId}</h2><p>Expanded details coming soon!</p>`;
-            modal.classList.add('active');
+        // Active nav link
+        let current = '';
+        sections.forEach(sec => {
+            if (value >= sec.offsetTop - sec.clientHeight * 0.3) {
+                current = sec.getAttribute('id');
+            }
         });
-    });
-
-    // 4. Close functions
-    function closeModal() {
-        modal.classList.remove('active');
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+        });
     }
 
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    
-    modal.addEventListener('click', (e) => { 
-        if (e.target === modal) closeModal(); 
-    });
+    // Attach to BOTH — only one fires depending on which element the CSS makes the scroll container
+    if (wrapper) wrapper.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
-    // 5. Escape Key listener (YouTube Style)
-    window.addEventListener('keydown', (e) => {
-        if (e.key === "Escape" && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
-});
-document.querySelector('.contact-form').addEventListener('submit', async function(e) {
-  e.preventDefault(); // STOPS the page reload / 405 error!
 
-  const form = e.target;
-  const toast = document.getElementById('success-toast');
+    // ─── PROJECT MODAL ────────────────────────────────────────────────────────
+    const projectDetails = {
+        "1": `
+            <h2 style="color:#1C3A27;border-bottom:2px solid #7D4F37;padding-bottom:10px;">Project One</h2>
+            <p style="color:#2B2625;line-height:1.6;margin-top:15px;">Add your expanded project one content here.</p>
+        `,
+        "2": `
+            <h2 style="color:#1C3A27;border-bottom:2px solid #7D4F37;padding-bottom:10px;">Project Two</h2>
+            <p style="color:#2B2625;line-height:1.6;margin-top:15px;">Add your expanded project two content here.</p>
+        `
+        // Add "3", "4" etc. following the same pattern
+    };
 
-  // Trigger the visual fade-in / slide-down animation instantly
-  toast.classList.add('toast-show');
+    const modal     = document.getElementById('projectModal');
+    const modalBody = document.getElementById('modalBody');
+    const closeBtn  = document.querySelector('.modal-close');
 
-  // Clear your form input values cleanly
-  form.reset();
+    if (modal && modalBody) {
+        document.querySelectorAll('.article-box').forEach((card, index) => {
+            if (!card.getAttribute('data-project')) {
+                card.setAttribute('data-project', (index + 1).toString());
+            }
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const id        = card.getAttribute('data-project');
+                modalBody.innerHTML = projectDetails[id]
+                    || `<h2 style="color:#1C3A27;">Project ${id}</h2><p style="color:#2B2625;margin-top:15px;">Expanded details coming soon!</p>`;
+                modal.classList.add('active');
+            });
+        });
 
-  // Keep it visible for 3 seconds, then slide up and fade away cleanly
-  setTimeout(() => {
-    toast.classList.remove('toast-show');
-  }, 3000);
+        function closeModal() { modal.classList.remove('active'); }
 
-  // In the background, this shoots the data quietly to your Vercel endpoint
-  try {
-    await fetch(form.action, {
-      method: form.method,
-      body: new FormData(form)
-    });
-  } catch (error) {
-    console.log("Local server warning: Python environment will initialize once live on Vercel.");
-  }
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+    }
+
+
+    // ─── CONTACT FORM ─────────────────────────────────────────────────────────
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const form  = e.target;
+            const toast = document.getElementById('success-toast');
+
+            // Honeypot: bot filled the hidden field — bail silently
+            if (form.elements['website'] && form.elements['website'].value) return;
+
+            const payload = {
+                visitor_email:   form.elements['visitor_email'].value.trim(),
+                email_subject:   form.elements['email_subject'].value.trim(),
+                visitor_phone:   form.elements['visitor_phone'].value.trim(),
+                visitor_message: form.elements['visitor_message'].value.trim()
+            };
+
+            try {
+                const response = await fetch('/api/submit', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    if (toast) {
+                        toast.classList.add('toast-show');
+                        setTimeout(() => toast.classList.remove('toast-show'), 3000);
+                    }
+                    form.reset();
+                } else {
+                    const err = await response.json().catch(() => ({}));
+                    alert(`Submission failed: ${err.error || `Server returned ${response.status}`}`);
+                }
+            } catch (networkError) {
+                console.error('Form error:', networkError);
+                alert('Could not reach the server. Check your connection and try again.');
+            }
+        });
+    }
+
 });

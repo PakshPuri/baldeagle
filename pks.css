@@ -1,18 +1,63 @@
-@import url('https://googleapis.com');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Space Grotesk", sans-serif;
 }
 
-body {
-    background-image: url("img15.png");
-    min-height: 100vh;
+/* ─── SCROLL FIX ──────────────────────────────────────────────────────────────
+   Old approach: html/body were overflow:hidden and .app-scrollbar-wrapper did
+   the scrolling. That meant window.scrollY was always 0 and scroll events on
+   window never fired, breaking all the JS parallax / nav / robot effects.
 
+   New approach: let the WINDOW scroll normally so window.scrollY works.
+   Move the custom scrollbar styles to html::-webkit-scrollbar so they still
+   apply to the real document scrollbar.
+   .app-scrollbar-wrapper is now just a plain wrapper div — no height/overflow.
+─────────────────────────────────────────────────────────────────────────────*/
+html {
+    scroll-behavior: smooth;
+    height: 100%;
 }
 
+body {
+    background-image: url("img15.png");
+    background-size: cover;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Custom scrollbar now targets the real document scrollbar */
+html::-webkit-scrollbar {
+    width: 14px;
+}
+
+html::-webkit-scrollbar-track {
+    background-image: url("img15.png");
+    background-position: right top;
+    background-size: cover;
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: #4a3329;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 10px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background-color: #2b1e18;
+}
+
+/* .app-scrollbar-wrapper is now a plain wrapper — no scroll magic needed */
+.app-scrollbar-wrapper {
+    width: 100%;
+}
+
+/* ─── HEADER ──────────────────────────────────────────────────────────────── */
 header {
     position: fixed;
     top: 0;
@@ -24,21 +69,7 @@ header {
     align-items: center;
     z-index: 100;
     background-image: url("img15.png");
-}
-
-.parallax {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 15px;
-    min-height: 100vh;
-    padding: 160px 50px 100px 50px;
-    align-items: center;
-    justify-items: center;
-    overflow-x: hidden;
-    max-width: 1100px;
-    margin: 0 auto;
-    overflow-y: hidden;
+    background-size: cover;
 }
 
 .logo {
@@ -64,6 +95,21 @@ header {
     color: #7D4F37;
 }
 
+/* ─── PARALLAX ────────────────────────────────────────────────────────────── */
+.parallax {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 15px;
+    min-height: 100vh;
+    padding: 160px 50px 100px 50px;
+    align-items: center;
+    justify-items: center;
+    overflow: hidden;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
 #text {
     color: #1C3A27;
     font-size: 2.5em;
@@ -82,7 +128,6 @@ header {
     object-fit: contain;
     background-color: transparent;
     transform: rotate(var(--rot, 0deg));
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
 }
 
@@ -95,13 +140,16 @@ header {
 #img6 { --rot: 0deg; }
 #img7 { --rot: 12deg; }
 
+/* Disable CSS transitions on parallax images — JS drives them */
 #img1, #img2, #img3, #img4, #img5, #img6, #img7, #img8 {
     transition: none !important;
 }
 
+/* ─── SECTIONS ────────────────────────────────────────────────────────────── */
 .sec {
     position: relative;
     background-image: url("img15.png");
+    background-size: cover;
     padding: 100px;
 }
 
@@ -116,54 +164,12 @@ header {
     color: #2B2625;
     font-weight: 175;
 }
-html {
-    scroll-behavior: smooth;
-}
-/* Step A: Lock the root window down so it cannot scroll natively */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden; /* Erases the primary white gutter completely */
+
+.has {
+    text-align: center;
 }
 
-/* Step B: Create a full-screen scroll container */
-.app-scrollbar-wrapper {
-  width: 100vw;
-  height: 100vh;
-  overflow-y: scroll; /* Handles your site's vertical scrolling mechanics */
-  
-  /* Apply your textured crinkled paper background asset globally here */
-  background-image: url('your-paper-texture-file.png'); 
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: local; /* Scrolls smoothly inline with your content */
-}
-
-/* Step C: Inject the exact same texture into the WebKit scroll track! */
-.app-scrollbar-wrapper::-webkit-scrollbar {
-  width: 14px;
-}
-
-.app-scrollbar-wrapper::-webkit-scrollbar-track {
-  /* Copy your exact paper asset URL route right into the track element */
-  background-image: url('your-paper-texture-file.png');
-  background-position: right top; /* Aligns texture flawlessly to the right edge */
-  background-size: cover;
-}
-
-/* Step D: Style your clean dark brown draggable scroll handle */
-.app-scrollbar-wrapper::-webkit-scrollbar-thumb {
-  background-color: #4a3329; /* Matches your dark brown heading layout color */
-  border: 3px solid transparent;
-  background-clip: padding-box;
-  border-radius: 10px;
-}
-
-.app-scrollbar-wrapper::-webkit-scrollbar-thumb:hover {
-  background-color: #2b1e18;
-}
-
+/* ─── ABOUT — LAYOUT ──────────────────────────────────────────────────────── */
 .layout-container {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -180,6 +186,7 @@ html, body {
     font-size: 1.1rem;
 }
 
+/* ─── ABOUT — VERTICAL SLIDER ────────────────────────────────────────────── */
 .slider {
     --speed: 25s;
     width: var(--width);
@@ -215,11 +222,11 @@ html, body {
     to   { top: calc(var(--height) * -1); }
 }
 
-/* --- 3D CAROUSEL MECHANICS --- */
+/* ─── PROJECTS — 3D CAROUSEL ─────────────────────────────────────────────── */
 .man {
     width: 100%;
-    height: 651px; /* 1. Changed from 105svh to a fixed height that fits your 300px cards comfortably */
-    margin-top: 5px; /* 2. Controls exactly how close the cards get to your "Projects" heading */
+    height: 651px;
+    margin-top: 5px;
     text-align: center;
     overflow: hidden;
     position: relative;
@@ -227,14 +234,14 @@ html, body {
     align-items: center;
     justify-content: center;
 }
+
 .man .boy {
     position: relative;
-    /* 1. Made the cards significantly smaller so they fit on standard screens */
-    width: 260px; 
-    height: 300px; 
+    width: 260px;
+    height: 300px;
     transform-style: preserve-3d;
     transform: perspective(1000px);
-    animation: autoRun 40s linear infinite; 
+    animation: autoRun 40s linear infinite;
 }
 
 @keyframes autoRun {
@@ -245,78 +252,67 @@ html, body {
 .man .boy .guy {
     position: absolute;
     inset: 0;
-    /* 2. Pulled the cards closer together (from 550px to 380px radius) so it doesn't bleed off screen */
-    transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * -1deg)) translateZ(380px); 
+    transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * -1deg)) translateZ(380px);
 }
 
 .man .boy:hover {
     animation-play-state: paused;
 }
 
-
-/* --- NEWSPAPER CARD LAYOUT --- */
+/* ─── PROJECTS — NEWSPAPER CARD ──────────────────────────────────────────── */
 .article-box {
-    display: block; 
-    background-color: #E7D9C9; /* Slightly more solid to hide background overlap */
+    background-color: #fbe1ca;
     border: 1px solid #7D4F37;
-    padding: 15px; /* Tighter padding for a smaller box */
-    width: 100%; 
-    height: 100%; 
-    box-sizing: border-box; 
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
     font-family: "Space Grotesk", sans-serif;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05);
-    overflow: hidden; 
+    overflow: hidden;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    text-align: left; 
-    cursor: pointer; /* Makes it obvious the card can be clicked */
-    display: block; 
-    background-color: #fbe1ca;
+    text-align: left;
+    cursor: pointer;
 }
 
 .article-title {
     color: #1C3A27;
-    font-size: 1.2em; /* Smaller font */
+    font-size: 1.2em;
     font-weight: 600;
     margin-top: 0;
     margin-bottom: 10px;
-    text-align: center; 
-    border-bottom: 2px solid #7D4F37; 
+    text-align: center;
+    border-bottom: 2px solid #7D4F37;
     padding-bottom: 5px;
 }
 
 .article-img {
-    float: right; 
+    float: right;
     margin-left: 15px;
     margin-bottom: 5px;
-    /* 3. Scaled down the image so text has more room to wrap */
     width: 110px;
     height: 90px;
     object-fit: cover;
     border-radius: 6px;
     border: 1px solid rgba(125, 79, 55, 0.2);
-    transform: translateZ(0); 
+    transform: translateZ(0);
 }
 
 .article-text {
     color: #2B2625;
-    font-size: 0.85em; 
+    font-size: 0.85em;
     line-height: 1.4;
     margin: 0;
-    
-    /* THE FIX: Switch to left alignment. Justify is what caused the massive gap! */
-    text-align: left; 
-    
-    /* Optional newspaper trick: allows the browser to add hyphens to long words instead of breaking the whole word down a line */
+    text-align: left;
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
-    hyphens: auto; 
+    hyphens: auto;
 }
 
-/* Mobile override for small screens */
 @media (max-width: 600px) {
     .man .boy {
-        width: 280px; 
+        width: 280px;
         height: auto;
         min-height: 250px;
     }
@@ -332,7 +328,8 @@ html, body {
         margin-bottom: 10px;
     }
 }
-/* Robot */
+
+/* ─── PROJECTS — ROBOT ───────────────────────────────────────────────────── */
 .robot-wrapper {
     position: relative;
     width: 500px;
@@ -351,29 +348,78 @@ html, body {
 
 .robot-arm {
     position: absolute;
-    width: 350px;       
-    top: -95%;           /* Keep your current resting position */
-    left: 14%;          
-    z-index: 2; 
-
-    /* ================= THE PIVOT ================= */
-    /* We use exact pixels. X (from left) and Y (from top) */
-    transform-origin: 233px 155px; 
-    /* ============================================= */
-
+    width: 350px;
+    top: -95%;
+    left: 14%;
+    z-index: 2;
+    transform-origin: 233px 155px;
     transition: transform 0s ease-out;
-
 }
 
-    /* Pivot at the shoulder joint — tweak these % values to match your img10.png */
+/* ─── INITIATIVES ─────────────────────────────────────────────────────────── */
+.AYELISTENTOTHIS {
+    display: block;
+    background-color: #e7d9c950;
+    border: 1px solid #7d4f3770;
+    padding: 15px;
+    width: 100%;
+    height: 80%;
+    box-sizing: border-box;
+    font-family: "Space Grotesk", sans-serif;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    text-align: left;
+}
 
-/* Hidden by default, covers the entire viewport */
+.RAPKATHAMAUSAM {
+    color: #1C3A27;
+    font-size: 2.2em;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px solid #7D4F37;
+    padding-bottom: 5px;
+}
+
+.ITNEMEINTUJHELAGGAYITHAND {
+    float: right;
+    margin-left: 15px;
+    margin-bottom: 5px;
+    width: 110px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(125, 79, 55, 0.2);
+    transform: translateZ(0);
+}
+
+.LAADLEISS-SETHANDETOUSKEREPLYTHE {
+    color: #2B2625;
+    font-size: 0.85em;
+    line-height: 1.4;
+    margin: 0;
+    text-align: left;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+.HOPLAYIVO-HUMHIPLAYETHE {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ─── MODAL ───────────────────────────────────────────────────────────────── */
 .modal-overlay {
-    display: none; 
+    display: none;
     position: fixed;
     inset: 0;
-    background-color: rgba(28, 58, 39, 0.4); /* Dark translucent version of your dark green */
-    backdrop-filter: blur(8px); /* Blurs the 3D spinning background beautifully */
+    background-color: rgba(28, 58, 39, 0.4);
+    backdrop-filter: blur(8px);
     z-index: 9999;
     justify-content: center;
     align-items: center;
@@ -381,15 +427,13 @@ html, body {
     transition: opacity 0.3s ease;
 }
 
-/* When active, trigger the view */
 .modal-overlay.active {
     display: flex;
     opacity: 1;
 }
 
-/* The actual expanded card window */
 .modal-content {
-    background-color: #fbe1ca; /* Matches your newspaper card color */
+    background-color: #fbe1ca;
     border: 2px solid #7D4F37;
     border-radius: 12px;
     padding: 30px;
@@ -398,9 +442,7 @@ html, body {
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    
-    /* Smooth scale-up animation */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     transform: scale(0.7);
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -409,7 +451,6 @@ html, body {
     transform: scale(1);
 }
 
-/* Close Button (X) */
 .modal-close {
     position: absolute;
     top: 15px;
@@ -420,7 +461,6 @@ html, body {
     font-weight: bold;
 }
 
-/* YouTube style Escape hint */
 .escape-hint {
     position: absolute;
     top: 20px;
@@ -439,208 +479,132 @@ html, body {
 
 .modal-overlay.active .escape-hint {
     opacity: 1;
-    animation: fadeOutHint 3s forwards 1.5s; /* Fades out after a few seconds just like YT */
+    animation: fadeOutHint 3s forwards 1.5s;
 }
 
 @keyframes fadeOutHint {
     to { opacity: 0; }
 }
-.has {
+
+/* ─── CONTACT FORM ────────────────────────────────────────────────────────── */
+.contact-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    font-family: inherit;
+}
+
+.form-title {
+    color: #1b3322;
+    margin-bottom: 25px;
+    font-size: 2rem;
     text-align: center;
 }
 
-
-/*this website will go down in history i tell you*/
-/*idek bro its 4am*/
-.AYELISTENTOTHIS{
-    display: block; 
-    background-color: #e7d9c950; /* Slightly more solid to hide background overlap */
-    border: 1px solid #7d4f3770;
-    padding: 15px; /* Tighter padding for a smaller box */
-    width: 100%; 
-    height: 80%; 
-    box-sizing: border-box; 
-    font-family: "Space Grotesk", sans-serif;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05);
-    overflow: hidden; 
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    text-align: left; 
-    display: block; 
-}
-
-.RAPKATHAMAUSAM {
-    color: #1C3A27;
-    font-size: 2.2em; /* Smaller font */
-    font-weight: 600;
-    margin-top: 0;
-    margin-bottom: 10px;
-    text-align: center; 
-    border-bottom: 2px solid #7D4F37; 
-    padding-bottom: 5px;
-}
-
-.ITNEMEINTUJHELAGGAYITHAND {
-    float: right; 
-    margin-left: 15px;
-    margin-bottom: 5px;
-    /* 3. Scaled down the image so text has more room to wrap */
-    width: 110px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid rgba(125, 79, 55, 0.2);
-    transform: translateZ(0); 
-}
-
-.LAADLEISS-SETHANDETOUSKEREPLYTHE {
-    color: #2B2625;
-    font-size: 0.85em; 
-    line-height: 1.4;
-    margin: 0;
-    
-    /* THE FIX: Switch to left alignment. Justify is what caused the massive gap! */
-    text-align: left; 
-    
-    /* Optional newspaper trick: allows the browser to add hyphens to long words instead of breaking the whole word down a line */
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto; 
-}
-.HOPLAYIVO-HUMHIPLAYETHE {
-  display: flex;
-  align-items: center; /* Aligns vertically */
-  gap: 15px; /* Spacing between image and text */
-}
-/*this shit has taken way too much time off my life*/
-/* Center the form container on your textured paper background */
-.contact-form {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 30px;
-  /* Soft, semi-transparent cream container overlay */
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  font-family: inherit;
-}
-
-/* Style the form title to match your dark green heading */
-.form-title {
-  color: #1b3322; /* Matches your visual header palette */
-  margin-bottom: 25px;
-  font-size: 2rem;
-  text-align: center;
-}
-
-/* Force each input label and field onto its own distinct row */
 .form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
-/* Style the text labels */
 .form-group label {
-  color: #4a3329; /* Matches your dark brown text color */
-  font-weight: 600;
-  margin-bottom: 8px;
-  font-size: 0.95rem;
+    color: #4a3329;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
 }
 
-/* Style the input text boxes and the textarea container */
 .form-group input,
 .form-group textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1.5px solid rgba(74, 51, 41, 0.3); /* Subtle brown border outline */
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.6); /* Semi-clear internal field backing */
-  color: #2b1e18;
-  font-size: 1rem;
-  box-sizing: border-box; /* Fixes elements running off the screen margin */
-  transition: all 0.3s ease;
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid rgba(74, 51, 41, 0.3);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.6);
+    color: #2b1e18;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
-/* Smooth visual highlight effect when a user clicks into a field */
 .form-group input:focus,
 .form-group textarea:focus {
-  outline: none;
-  border-color: #1b3322; /* Switches to your accent green */
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 8px rgba(27, 51, 34, 0.15);
+    outline: none;
+    border-color: #1b3322;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 8px rgba(27, 51, 34, 0.15);
 }
 
-/* Style your call-to-action Send Message button */
 .submit-btn {
-  width: 100%;
-  background-color: #1b3322; /* Deep green primary fill */
-  color: #ffffff;
-  padding: 14px;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+    width: 100%;
+    background-color: #1b3322;
+    color: #ffffff;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-/* Darken button color and add a slight pop effect when hovered */
 .submit-btn:hover {
-  background-color: #122217;
-  transform: translateY(-1px);
+    background-color: #122217;
+    transform: translateY(-1px);
 }
 
 .submit-btn:active {
-  transform: translateY(1px); /* Pushes down cleanly when clicked */
+    transform: translateY(1px);
 }
-/* Toast fixed center placement overlay config */
+
+/* ─── TOAST ───────────────────────────────────────────────────────────────── */
 #success-toast {
-  position: fixed;
-  top: 10%; /* Places it near the top center just like the Fullscreen notice */
-  left: 50%;
-  transform: translate(-50%, -50px);
-  background: rgba(30, 30, 30, 0.9); /* Dark background theme */
-  color: #ffffff;
-  padding: 12px 24px;
-  border-radius: 25px; /* Smooth rounded pill shape */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  font-family: inherit;
-  font-size: 0.95rem;
-  z-index: 9999; /* Forces it over all other design layers */
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50px);
+    background: rgba(30, 30, 30, 0.9);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-family: inherit;
+    font-size: 0.95rem;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
 }
 
-/* Flex item adjustments inside the pill container */
 .toast-content {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* Green checkmark indicator style */
 .toast-icon {
-  width: 20px;
-  height: 20px;
-  fill: #4caf50;
+    width: 20px;
+    height: 20px;
+    fill: #4caf50;
 }
 
-/* Class injected via JavaScript to slide down and fade in */
 #success-toast.toast-show {
-  opacity: 1;
-  transform: translate(-50%, 0);
+    opacity: 1;
+    transform: translate(-50%, 0);
 }
-/* Forcefully hide the honeypot field across all screen sizes and browsers */
+
+/* ─── HONEYPOT ────────────────────────────────────────────────────────────── */
 .honeypot-field {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  position: absolute !important;
-  top: -9999px !important;
-  left: -9999px !important;
-  width: 0 !important;
-  height: 0 !important;
-  overflow: hidden !important;
-  z-index: -9999 !important;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    z-index: -9999 !important;
 }

@@ -101,9 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             card.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const id        = card.getAttribute('data-project');
+                const id        = card.id || card.getAttribute('data-project');
                 
-                trackClick(`project-${id}`);
+                trackClick(id);
 
                 modalBody.innerHTML = projectDetails[id]
                     || `<h2 style="color:#1C3A27;">Project ${id}</h2><p style="color:#2B2625;margin-top:15px;">Expanded details coming soon!</p>`;

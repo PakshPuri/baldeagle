@@ -66,17 +66,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ─── PROJECT MODAL ────────────────────────────────────────────────────────
+    const createProjectTemplate = (title, tag, excerpt, author, date) => `
+        <article class="article-box">
+            <div class="article-image">
+                <div class="article-image-placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="1"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                    <span>Image</span>
+                </div>
+            </div>
+            <div class="article-body">
+                <span class="article-tag">${tag}</span>
+                <h2 class="article-title">${title}</h2>
+                <div class="article-rule"></div>
+                <p class="article-excerpt">${excerpt}</p>
+                <div class="article-byline">
+                    <span class="author">${author}</span>
+                    <span class="dot">·</span>
+                    <span class="date">${date}</span>
+                </div>
+            </div>
+        </article>
+    `;
+
     const projectDetails = {
-        "1": `
-            <h2 style="color:#1C3A27;border-bottom:2px solid #7D4F37;padding-bottom:10px;">Project One</h2>
-            <p style="color:#2B2625;line-height:1.6;margin-top:15px;">Add your expanded project one content here.</p>
-        `,
-        "2": `
-            <h2 style="color:#1C3A27;border-bottom:2px solid #7D4F37;padding-bottom:10px;">Project Two</h2>
-            <p style="color:#2B2625;line-height:1.6;margin-top:15px;">Add your expanded project two content here.</p>
-        `
-        // Add "3", "4" etc. following the same pattern
+        "pj1": createProjectTemplate("The Slow Return of the Written Word", "Culture", "Across reading rooms and quiet cafés, a quiet shift is taking place — people are putting down their phones and picking up books again.", "Eleanor Marsh", "June 5, 2026"),
+        "pj2": createProjectTemplate("Digital Minimalism in a Hyper-Connected World", "Tech", "Exploring how intentional use of technology can lead to a more focused and fulfilling life in the digital age.", "Julian Vane", "May 12, 2026"),
+        "pj3": createProjectTemplate("The Art of Sustainable Architecture", "Design", "How modern architects are integrating nature and sustainability into urban landscapes to create living spaces.", "Sonia Grier", "April 20, 2026"),
+        "pj4": createProjectTemplate("Reimagining Urban Spaces", "Urbanism", "Cities are being redesigned to prioritize pedestrians and green spaces over cars and concrete.", "Marcus Thorne", "March 15, 2026"),
+        "pj5": createProjectTemplate("The Future of Remote Collaboration", "Work", "As the office becomes optional, new tools and cultures are emerging to define how we work together.", "Lydia Chen", "February 28, 2026"),
+        "pj6": createProjectTemplate("Culinary Traditions in a Globalized Kitchen", "Food", "Tracing the roots of traditional recipes and how they evolve as they travel across borders.", "Chef Rene", "January 10, 2026"),
+        "pj7": createProjectTemplate("The Psychology of Creative Flow", "Psychology", "Understanding the state of 'flow' and how artists and scientists achieve peak performance through focus.", "Dr. Aris", "December 5, 2025"),
+        "pj8": createProjectTemplate("Ocean Conservation: A Race Against Time", "Nature", "The latest efforts to protect our oceans and the innovative technologies being used to restore coral reefs.", "Nora Blue", "November 22, 2025"),
+        "pj9": createProjectTemplate("The Rise of Indie Game Development", "Gaming", "How small studios are challenging the status quo with unique stories and experimental mechanics.", "Leo Sparks", "October 30, 2025")
     };
+    // Support numeric keys too for robustness
+    for (let i = 1; i <= 9; i++) {
+        projectDetails[i.toString()] = projectDetails[`pj${i}`];
+    }
 
     const modal     = document.getElementById('projectModal');
     const modalBody = document.getElementById('modalBody');

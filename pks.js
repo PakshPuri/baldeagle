@@ -83,6 +83,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn  = document.querySelector('.modal-close');
 
     if (modal && modalBody) {
+        async function trackClick(slug) {
+            try {
+                await fetch('/api/clicks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ slug: slug })
+                });
+            } catch (err) {
+                console.error('Analytics error:', err);
+            }
+        }
+
         document.querySelectorAll('.article-box').forEach((card, index) => {
             if (!card.getAttribute('data-project')) {
                 card.setAttribute('data-project', (index + 1).toString());
@@ -90,6 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const id        = card.getAttribute('data-project');
+                
+                trackClick(`project-${id}`);
+
                 modalBody.innerHTML = projectDetails[id]
                     || `<h2 style="color:#1C3A27;">Project ${id}</h2><p style="color:#2B2625;margin-top:15px;">Expanded details coming soon!</p>`;
                 modal.classList.add('active');

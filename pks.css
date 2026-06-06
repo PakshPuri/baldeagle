@@ -358,8 +358,8 @@ h2 {
     }
 
     .arm {
-        top: -78%;
-        left: calc(13% - 10px);
+        top: calc(-78% + 7px);
+        left: calc(13% - 7px);
         transform-origin: 146px 97px;
     }
 }

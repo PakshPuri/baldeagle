@@ -27,12 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (text) text.style.opacity = fade;
             if (img1) img1.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
-            if (img2) img2.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
+            if (img2) img2.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
             if (img3) img3.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
             if (img4) img4.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
             if (img5) img5.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
             if (img6) img6.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
-            if (img7) img7.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
+            if (img7) img7.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
             if (img8) img8.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
         } else {
             if (text) text.style.opacity = 1;
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (img8)  img8.style.transform  = `translateY(${value * -0.2}px) rotate(var(--rot, 0deg))`;
         }
 
-        if (!mobile && arm && rsec) {
+        if (arm && rsec) {
             const rect = rsec.getBoundingClientRect();
             if (rect.top < window.innerHeight && rect.bottom > 0) {
                 const tdist   = window.innerHeight + rect.height;

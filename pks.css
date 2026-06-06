@@ -117,7 +117,6 @@ h2 {
 }
 
 @media (max-width: 768px) {
-    #home > img,
     .robot,
     .robot .bot,
     .robot .arm {
@@ -146,13 +145,25 @@ h2 {
 @media (max-width: 768px) {
     .parallax {
         grid-template-columns: repeat(2, 1fr);
-        padding: 120px 20px 40px 20px;
+        grid-template-rows: auto;
+        align-content: start;
+        min-height: 100vh;
+        padding: 125px 18px 40px 18px;
+        overflow: hidden;
     }
     
     #text {
         font-size: 1.8em;
+        order: 1;
         grid-column: span 2;
-        margin: 20px 0;
+        margin: 10px 0 20px;
+    }
+
+    .parallax img {
+        order: 2;
+        width: 100%;
+        max-width: 135px;
+        max-height: 16vh;
     }
 }
 
@@ -416,6 +427,22 @@ h2 {
     width: 100%;
     max-height: 450px;
     display: block;
+}
+
+@media (max-width: 768px) {
+    .ilayout {
+        flex-direction: column;
+    }
+
+    .ipics {
+        width: min(100%, 240px);
+        margin: 0 auto;
+    }
+
+    .ipicwide,
+    .msvg {
+        display: none;
+    }
 }
 
 .overlay {

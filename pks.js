@@ -18,19 +18,32 @@ document.addEventListener('DOMContentLoaded', () => {
     function scroll() {
         const value = window.pageYOffset || document.documentElement.scrollTop;
         const mobile = window.matchMedia('(max-width: 768px)').matches;
-        const mult = mobile ? 0.3 : 1;
 
-        if (text)  text.style.transform  = `translateY(${value * 0.5 * mult}px)`;
+        if (text)  text.style.transform  = `translateY(${value * 0.5}px)`;
 
-        if (!mobile) {
-            if (img1)  img1.style.transform  = `translate(${value * -0.4 * mult}px, ${value * -0.4 * mult}px) rotate(var(--rot, 0deg))`;
-            if (img2)  img2.style.transform  = `translate(${value *  0.4 * mult}px, ${value * -0.4 * mult}px) rotate(var(--rot, 0deg))`;
-            if (img3)  img3.style.transform  = `translate(${value * -0.3 * mult}px, ${value *  0.2 * mult}px) rotate(var(--rot, 0deg))`;
-            if (img4)  img4.style.transform  = `translate(${value *  0.3 * mult}px, ${value *  0.2 * mult}px) rotate(var(--rot, 0deg))`;
-            if (img5)  img5.style.transform  = `translate(${value * -0.4 * mult}px, ${value *  0.4 * mult}px) rotate(var(--rot, 0deg))`;
-            if (img6)  img6.style.transform  = `translateY(${value * 0.6 * mult}px) rotate(var(--rot, 0deg))`;
-            if (img7)  img7.style.transform  = `translate(${value *  0.5 * mult}px, ${value *  0.4 * mult}px) rotate(var(--rot, 0deg))`;
-            if (img8)  img8.style.transform  = `translateY(${value * -0.2 * mult}px) rotate(var(--rot, 0deg))`;
+        if (mobile) {
+            const fade = Math.max(0, 1 - value / 360);
+            const side = value * 0.9;
+
+            if (text) text.style.opacity = fade;
+            if (img1) img1.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
+            if (img2) img2.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
+            if (img3) img3.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
+            if (img4) img4.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
+            if (img5) img5.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
+            if (img6) img6.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
+            if (img7) img7.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
+            if (img8) img8.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
+        } else {
+            if (text) text.style.opacity = 1;
+            if (img1)  img1.style.transform  = `translate(${value * -0.4}px, ${value * -0.4}px) rotate(var(--rot, 0deg))`;
+            if (img2)  img2.style.transform  = `translate(${value *  0.4}px, ${value * -0.4}px) rotate(var(--rot, 0deg))`;
+            if (img3)  img3.style.transform  = `translate(${value * -0.3}px, ${value *  0.2}px) rotate(var(--rot, 0deg))`;
+            if (img4)  img4.style.transform  = `translate(${value *  0.3}px, ${value *  0.2}px) rotate(var(--rot, 0deg))`;
+            if (img5)  img5.style.transform  = `translate(${value * -0.4}px, ${value *  0.4}px) rotate(var(--rot, 0deg))`;
+            if (img6)  img6.style.transform  = `translateY(${value * 0.6}px) rotate(var(--rot, 0deg))`;
+            if (img7)  img7.style.transform  = `translate(${value *  0.5}px, ${value *  0.4}px) rotate(var(--rot, 0deg))`;
+            if (img8)  img8.style.transform  = `translateY(${value * -0.2}px) rotate(var(--rot, 0deg))`;
         }
 
         if (!mobile && arm && rsec) {

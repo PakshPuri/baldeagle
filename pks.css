@@ -98,6 +98,10 @@ header {
     }
 }
 
+h2 {
+    text-align: center;
+}
+
 .parallax {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -110,6 +114,15 @@ header {
     overflow: hidden;
     max-width: 1100px;
     margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    #home > img,
+    .robot,
+    .robot .bot,
+    .robot .arm {
+        display: none !important;
+    }
 }
 
 #text {

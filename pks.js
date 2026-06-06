@@ -23,15 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (mobile) {
             const fade = Math.max(0, 1 - value / 360);
-            const side = value * 0.9;
+            const side = value * 0.45;
 
             if (text) text.style.opacity = fade;
             if (img1) img1.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
             if (img2) img2.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
-            if (img3) img3.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
-            if (img4) img4.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
-            if (img5) img5.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
-            if (img6) img6.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
+            if (img3) img3.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
+            if (img4) img4.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
+            if (img5) img5.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
+            if (img6) img6.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
             if (img7) img7.style.transform = `translateX(${-side}px) rotate(var(--rot, 0deg))`;
             if (img8) img8.style.transform = `translateX(${side}px) rotate(var(--rot, 0deg))`;
         } else {

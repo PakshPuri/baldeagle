@@ -502,6 +502,10 @@ h2 {
         width: 100%;
         margin-right: 0;
     }
+
+    .hint {
+        display: none;
+    }
 }
 
 .content .byline {

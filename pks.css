@@ -359,7 +359,7 @@ h2 {
 
     .arm {
         top: -78%;
-        left: 13%;
+        left: calc(13% - 10px);
         transform-origin: 146px 97px;
     }
 }

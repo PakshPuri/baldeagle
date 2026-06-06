@@ -358,7 +358,7 @@ h2 {
     }
 
     .arm {
-        top: calc(-78% + 4px);
+        top: calc(-78% + 5px);
         left: calc(13% - 13px);
         transform-origin: 146px 97px;
     }

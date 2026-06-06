@@ -66,23 +66,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ─── PROJECT MODAL ────────────────────────────────────────────────────────
-    const createProjectTemplate = (title, tag, excerpt, author, date) => `
+    const createProjectTemplate = (title, excerpt, author, date, imageUrl) => `
         <article class="article-box">
-            <div class="article-image">
-                <div class="article-image-placeholder">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="18" height="18" rx="1"/>
-                        <circle cx="8.5" cy="8.5" r="1.5"/>
-                        <polyline points="21 15 16 10 5 21"/>
-                    </svg>
-                    <span>Image</span>
-                </div>
-            </div>
             <div class="article-body">
-                <span class="article-tag">${tag}</span>
                 <h2 class="article-title">${title}</h2>
                 <div class="article-rule"></div>
+                <div class="article-image">
+                    ${imageUrl ? `<img src="${imageUrl}" alt="${title}">` : `
+                    <div class="article-image-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="1"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                        <span>Image</span>
+                    </div>`}
+                </div>
                 <p class="article-excerpt">${excerpt}</p>
                 <div class="article-byline">
                     <span class="author">${author}</span>
@@ -94,18 +94,19 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     const projectDetails = {
-        "pj1": createProjectTemplate("The Slow Return of the Written Word", "Culture", "Across reading rooms and quiet cafés, a quiet shift is taking place — people are putting down their phones and picking up books again.", "Eleanor Marsh", "June 5, 2026"),
-        "pj2": createProjectTemplate("Digital Minimalism in a Hyper-Connected World", "Tech", "Exploring how intentional use of technology can lead to a more focused and fulfilling life in the digital age.", "Julian Vane", "May 12, 2026"),
-        "pj3": createProjectTemplate("The Art of Sustainable Architecture", "Design", "How modern architects are integrating nature and sustainability into urban landscapes to create living spaces.", "Sonia Grier", "April 20, 2026"),
-        "pj4": createProjectTemplate("Reimagining Urban Spaces", "Urbanism", "Cities are being redesigned to prioritize pedestrians and green spaces over cars and concrete.", "Marcus Thorne", "March 15, 2026"),
-        "pj5": createProjectTemplate("The Future of Remote Collaboration", "Work", "As the office becomes optional, new tools and cultures are emerging to define how we work together.", "Lydia Chen", "February 28, 2026"),
-        "pj6": createProjectTemplate("Culinary Traditions in a Globalized Kitchen", "Food", "Tracing the roots of traditional recipes and how they evolve as they travel across borders.", "Chef Rene", "January 10, 2026"),
-        "pj7": createProjectTemplate("The Psychology of Creative Flow", "Psychology", "Understanding the state of 'flow' and how artists and scientists achieve peak performance through focus.", "Dr. Aris", "December 5, 2025"),
-        "pj8": createProjectTemplate("Ocean Conservation: A Race Against Time", "Nature", "The latest efforts to protect our oceans and the innovative technologies being used to restore coral reefs.", "Nora Blue", "November 22, 2025"),
-        "pj9": createProjectTemplate("The Rise of Indie Game Development", "Gaming", "How small studios are challenging the status quo with unique stories and experimental mechanics.", "Leo Sparks", "October 30, 2025")
+        "pj1": createProjectTemplate("Ares", "Ares is a 5kg-class RoboSumo combat robot built to compete within strict 25×25×25cm size guidelines — without compromising on power. Designed and built as a two-person team, Ares features a custom 6-wheeled Johnson motor drivetrain with a carefully re-engineered motor placement that maximises torque and drive force within the size constraints. Its signature front wedge is precision-angled to slide under opponents and drive them out of the arena. Ares was placed 3rd at the Pacific Robotics Championship, Jasola, proving its design and strategy on a competitive stage.", "Paksh & Team", "April 19, 2026", "img29.png"),
+        "pj2": createProjectTemplate("Velocity V3", "Velocity is a line-following robot built across three versions, refined through two prototypes, and taken all the way to a 3rd place finish at TechRadiance, IIT Delhi — solo, on a first LFR attempt. The journey began with a cardboard chassis just to test wiring and components, evolved into a fully functional V2 with solid speed, and culminated in V3 — a complete rebuild around the event's demanding regulations. Where most beginner builds lean on digital sensors, PID libraries, and capable motor drivers, TechRadiance stripped it all back: analog IR sensors, single-piece IR modules, BO motors capped at 300RPM, and only L293D/L298N drivers allowed — no shortcuts. Learning to code precise, responsive line-following under those constraints, from scratch, is what makes Velocity special. Not just a podium finish — a reminder that limitations build better engineers.","Solo Build", "April 6, 2026", "img26.png"),
+        "pj3": createProjectTemplate("Cosmo", "Cosmo is a cheerful purple desk robot companion that knows who you are. Hand-crafted using a 3D pen, it uses OpenCV-powered face recognition to identify people from a personal database in real time — and greets them with a physical wave. The wave is delivered through a hinged arm mechanism, driven by an N20 motor via an L293D IC at the elbow joint, giving it a surprisingly lifelike gesture. Built solo with an Arduino Nano and the laptop's built-in camera, Cosmo sits happily on your desk until it sees a familiar face — then it waves hi.", "Solo Build", "December 24, 2025", "img31.png"),
+        "pj4": createProjectTemplate("Hermes", "Hermes is a 5kg-class RoboRace bot engineered for speed and precision within 25×25×25cm competition guidelines. Built by a team of four, Hermes went through rigorous real-world testing across multiple RPM configurations — 300, 600, and 900 — before settling on a finely tuned 600RPM AWD 4-Johnson-motor drivetrain that delivers the ideal balance of speed and control. The motor shafts were custom-cut to reduce weight and improve handling, pushing performance right to the edge of the weight class. Hermes qualified at PRC Tagore Garden and went on to finish Top 5 at PRC Jasola, a result earned through hands-on iteration and competitive refinement.", "Team of 4", "April 18, 2026", "img25.png"),
+        "pj5": createProjectTemplate("Epimetheus", "Epimetheus V1 is the most advanced line follower built to date — and it shows. Competing solo, it claimed 3rd place at PRC Jasola on the back of a machine engineered from the ground up for speed and precision. At its core is a 2000RPM N20 motor drivetrain paired with a TB6612 motor driver and an Arduino Nano, pushing performance well beyond previous builds. A custom impeller generates active downforce, keeping the bot planted and grippy through tight curves at high speed. The curved IR sensor array — hand-designed for optimal line detection geometry — sits on a fully hand-soldered veroboard PCB, eliminating the bulk and unreliability of jumper wires. 3D printed wheels with rubber grips and a purpose-built 3D printed chassis round out a bot where every single component was chosen, built, or modified by hand. Epimetheus V1 is a complete rethink of what a line follower can be.","Solo Build", "April 17, 2026", "img24.png"),
+        "pj6": createProjectTemplate("DodgeX", "DodgeX is a retro-style, minimalist block-dodging game controlled entirely by your hand — no keyboard or mouse needed. Built solo in Python using OpenCV and MediaPipe, the game uses real-time hand tracking to detect left and right hand movements, switching the player between lanes to dodge incoming blocks. The project was a self-driven dive into computer vision and game logic, combining both the hand tracker and the game from scratch. DodgeX captures the charm of pixel-art aesthetics while serving as a hands-on foundation in Python, CV pipelines, and interactive programming.", "Solo Build", "December 31, 2025", "img30.png"),
+        "pj7": createProjectTemplate("Arduino Radar", "Arduino Radar is a functional proximity radar built using an ultrasonic sensor and visualized in real-time through a Python interface — and it almost didn't exist. With no servo and no motor encoder on hand, what could've been a dead end turned into a lesson in persistence: the motor sweep was painstakingly tuned entirely through manual hardcoding, dialling in timing and angles by trial and error alone. Built solo, this was my first Arduino project and itthat refused to take shortcuts — and the result is a working radar that means a lot more because of it.", "Solo Build", "June 24, 2025", "img28.png"),
+        "pj8": createProjectTemplate("PocketRC", "PocketRC is a hand-built, remotely operated car controlled through a custom Android app built in Android Studio — marking a first dive into both hardware and mobile development. Powered by an Arduino Nano and communicating over Bluetooth, the car supports variable speed control, giving smooth, responsive handling straight from a phone. Designed and built entirely solo, this project laid the foundation for all future hardware work — bridging embedded systems, wireless communication, and mobile app development in one clean first build.", "Solo Build", "October 20, 2025", "img23.png"),
+        "pj9": createProjectTemplate("Unity", "Harmony in Diversity is the website that started it all. Built solo in plain HTML, CSS, and JavaScript for a competition centred around the theme of unity and diversity, it placed in the Top 5 — a strong result for a first-ever web project. The site was humble in stack but meaningful in purpose, and looking back, it marks the exact moment a journey into web development began. In the 8–10 months since, that foundation has grown into full-stack development — a testament to how far one first project can take you.","Solo Build", "March 15, 2025", "img32.png"),
+        "pj10": createProjectTemplate("Theseus", "Micromouse is an autonomous maze-solving robot that brings together hardware, algorithms, and fabrication in one compact build. Developed as a team of three, it runs on an Arduino Nano and navigates using a flood fill algorithm followed by shortest path calculation — both of which were implemented and tested successfully. The proximity sensing at its core builds directly on the radar tech developed in a prior solo project, making Micromouse a natural evolution of earlier work. Its chassis was fully 3D printed, and the bot proved itself reliably in testing. It never got to compete — no suitable event came around in time — and its components were eventually harvested for future builds. A capable, well-engineered robot that deserved a stage.", "Team of 3", "July 10, 2025", "img27.png"),
     };
     // Support numeric keys too for robustness
-    for (let i = 1; i <= 9; i++) {
+    for (let i = 1; i <= 10; i++) {
         projectDetails[i.toString()] = projectDetails[`pj${i}`];
     }
 

@@ -9,33 +9,66 @@
 }
 
 /* ─── MODAL ARTICLE STYLES ────────────────────────────────────────────────── */
+.modal-content {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    width: 95%;
+    max-width: 950px;
+    max-height: 92vh;
+    overflow-y: auto; /* Scroll the modal itself if content is tall */
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: scale(0.7);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 .modal-content .article-box {
     width: 100%;
-    background: #F7F2E8;
+    min-height: 100%;
+    background: rgba(226, 212, 195, 0.98); /* Less translucent for readability */
+    backdrop-filter: blur(15px);
     border: 1px solid #CFC4B0;
-    border-radius: 3px;
-    overflow: hidden;
+    border-radius: 4px;
+    padding: 40px;
     cursor: default;
-    box-shadow: none;
-    transform: none;
-    backface-visibility: visible;
+    box-sizing: border-box;
 }
 
 .modal-content .article-image {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: #E0D5C3;
-    border-bottom: 1px solid #CFC4B0;
+    float: left;
+    width: 38%;
+    margin-right: 30px;
+    margin-bottom: 15px;
+    background: transparent;
+    border: none;
+}
+
+.modal-content .article-byline {
+    clear: both; /* Force it below the image and text wrap */
     display: flex;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    gap: 7px;
+    font-family: 'Lora', Georgia, serif;
+    font-size: 11.5px;
+    color: #8C7E71;
+    padding-top: 20px;
+    border-top: 1px solid rgba(194, 181, 163, 0.3);
 }
 
 .modal-content .article-image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    border-radius: 2px;
+    border: 1px solid rgba(125, 79, 55, 0.1);
+}
+
+.modal-content .article-body {
+    padding: 0;
+    text-align: left;
     display: block;
 }
 
@@ -57,25 +90,6 @@
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-}
-
-.modal-content .article-body {
-    padding: 22px 24px 26px;
-    text-align: left;
-}
-
-.modal-content .article-tag {
-    display: inline-block;
-    font-family: 'Lora', Georgia, serif;
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #7A6A57;
-    background: #E6DDD0;
-    padding: 3px 9px;
-    border-radius: 2px;
-    margin-bottom: 14px;
 }
 
 .modal-content .article-title {
@@ -126,16 +140,7 @@
     font-style: italic;
 }
 
-/* ─── SCROLL FIX ──────────────────────────────────────────────────────────────
-   Old approach: html/body were overflow:hidden and .app-scrollbar-wrapper did
-   the scrolling. That meant window.scrollY was always 0 and scroll events on
-   window never fired, breaking all the JS parallax / nav / robot effects.
-
-   New approach: let the WINDOW scroll normally so window.scrollY works.
-   Move the custom scrollbar styles to html::-webkit-scrollbar so they still
-   apply to the real document scrollbar.
-   .app-scrollbar-wrapper is now just a plain wrapper div — no height/overflow.
-─────────────────────────────────────────────────────────────────────────────*/
+/* ─── SCROLL FIX ────────────────────────────────────────────────────────────── */
 html {
     scroll-behavior: smooth;
     height: 100%;
@@ -149,7 +154,6 @@ body {
     min-height: 100vh;
 }
 
-/* Custom scrollbar now targets the real document scrollbar */
 html::-webkit-scrollbar {
     width: 14px;
 }
@@ -171,7 +175,6 @@ html::-webkit-scrollbar-thumb:hover {
     background-color: #2b1e18;
 }
 
-/* .app-scrollbar-wrapper is now a plain wrapper — no scroll magic needed */
 .app-scrollbar-wrapper {
     width: 100%;
 }
@@ -280,8 +283,8 @@ header {
 
 .sec p {
     font-size: 1em;
-    color: #2B2625;
-    font-weight: 175;
+    color: #111111;
+    font-weight: 300;
 }
 
 .has {
@@ -344,8 +347,8 @@ header {
 /* ─── PROJECTS — 3D CAROUSEL ─────────────────────────────────────────────── */
 .man {
     width: 100%;
-    height: 651px;
-    margin-top: 5px;
+    height: 810px;
+    margin-top: 0px;
     text-align: center;
     overflow: hidden;
     position: relative;
@@ -371,7 +374,7 @@ header {
 .man .boy .guy {
     position: absolute;
     inset: 0;
-    transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * -1deg)) translateZ(380px);
+    transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * -1deg)) translateZ(420px);
 }
 
 .man .boy:hover {
@@ -384,7 +387,7 @@ header {
     border: 1px solid #7D4F37;
     padding: 15px;
     width: 100%;
-    height: 100%;
+    height: 110%;
     box-sizing: border-box;
     font-family: "Space Grotesk", sans-serif;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05);
@@ -413,7 +416,7 @@ header {
     width: 110px;
     height: 90px;
     object-fit: cover;
-    border-radius: 6px;
+
     border: 1px solid rgba(125, 79, 55, 0.2);
     transform: translateZ(0);
 }
@@ -537,7 +540,6 @@ header {
     object-fit: cover;
     border: 1px solid rgba(125, 79, 55, 0.2);
 }
-
 .LAADLEISS-SETHANDETOUSKEREPLYTHE {
     flex: 1;
     color: #2B2625;
@@ -596,9 +598,9 @@ header {
     border-radius: 0;
     padding: 0;
     width: 90%;
-    max-width: 380px;
+    max-width: 800px;
     max-height: 90vh;
-    overflow: visible;
+    overflow: hidden;
     position: relative;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transform: scale(0.7);
@@ -618,7 +620,7 @@ header {
     cursor: pointer;
     font-weight: bold;
     z-index: 10001;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
 }
 
 .escape-hint {

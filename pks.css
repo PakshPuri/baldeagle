@@ -182,6 +182,12 @@ h2 {
     padding: 100px;
 }
 
+#initiatives {
+    background-size: auto;
+    background-repeat: repeat;
+    background-position: top center;
+}
+
 .sec h2 {
     font-size: 3em;
     color: #1C3A27;
@@ -198,6 +204,14 @@ h2 {
 @media (max-width: 768px) {
     .sec {
         padding: 60px 5%;
+    }
+
+    #projects,
+    #initiatives {
+        background-size: auto;
+        background-repeat: repeat;
+        background-position: top center;
+        background-attachment: scroll;
     }
     
     .sec h2 {

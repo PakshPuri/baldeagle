@@ -16,17 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections     = document.querySelectorAll('section');
 
     function scroll() {
-        const value = (wrapper ? wrapper.scrollTop : 0) || window.scrollY || 0;
+        const value = window.pageYOffset || document.documentElement.scrollTop;
+        const mobile = window.innerWidth < 768;
+        const mult = mobile ? 0.3 : 1;
 
-        if (text)  text.style.transform  = `translateY(${value * 0.8}px)`;
-        if (img1)  img1.style.transform  = `translate(${value * -0.5}px, ${value * -0.5}px) rotate(var(--rot))`;
-        if (img2)  img2.style.transform  = `translate(${value *  0.5}px, ${value * -0.5}px) rotate(var(--rot))`;
-        if (img3)  img3.style.transform  = `translate(${value * -0.5}px, ${value *  0.3}px) rotate(var(--rot))`;
-        if (img4)  img4.style.transform  = `translate(${value *  0.5}px, ${value *  0.3}px) rotate(var(--rot))`;
-        if (img5)  img5.style.transform  = `translate(${value * -0.5}px, ${value *  0.5}px) rotate(var(--rot))`;
-        if (img6)  img6.style.transform  = `translateY(${value * 0.9}px) rotate(var(--rot))`;
-        if (img7)  img7.style.transform  = `translate(${value *  0.8}px, ${value *  0.5}px) rotate(var(--rot))`;
-        if (img8)  img8.style.transform  = `translateY(${value * -0.3}px) rotate(var(--rot))`;
+        if (text)  text.style.transform  = `translateY(${value * 0.5 * mult}px)`;
+        if (img1)  img1.style.transform  = `translate(${value * -0.4 * mult}px, ${value * -0.4 * mult}px) rotate(var(--rot, 0deg))`;
+        if (img2)  img2.style.transform  = `translate(${value *  0.4 * mult}px, ${value * -0.4 * mult}px) rotate(var(--rot, 0deg))`;
+        if (img3)  img3.style.transform  = `translate(${value * -0.3 * mult}px, ${value *  0.2 * mult}px) rotate(var(--rot, 0deg))`;
+        if (img4)  img4.style.transform  = `translate(${value *  0.3 * mult}px, ${value *  0.2 * mult}px) rotate(var(--rot, 0deg))`;
+        if (img5)  img5.style.transform  = `translate(${value * -0.4 * mult}px, ${value *  0.4 * mult}px) rotate(var(--rot, 0deg))`;
+        if (img6)  img6.style.transform  = `translateY(${value * 0.6 * mult}px) rotate(var(--rot, 0deg))`;
+        if (img7)  img7.style.transform  = `translate(${value *  0.5 * mult}px, ${value *  0.4 * mult}px) rotate(var(--rot, 0deg))`;
+        if (img8)  img8.style.transform  = `translateY(${value * -0.2 * mult}px) rotate(var(--rot, 0deg))`;
 
         if (arm && rsec) {
             const rect = rsec.getBoundingClientRect();
@@ -115,12 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         document.querySelectorAll('.box').forEach((card, index) => {
-            if (!card.getAttribute('data-project')) {
-                card.setAttribute('data-project', (index + 1).toString());
+            if (!card.getAttribute('dataid')) {
+                card.setAttribute('dataid', (index + 1).toString());
             }
             card.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const id        = card.id || card.getAttribute('data-project');
+                const id        = card.id || card.getAttribute('dataid');
                 
                 track(id);
 
@@ -150,10 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (form.elements['website'] && form.elements['website'].value) return;
 
             const payload = {
-                vemail:   form.elements['vemail'].value.trim(),
-                vsub:     form.elements['vsub'].value.trim(),
-                vphone:   form.elements['vphone'].value.trim(),
-                vmsg:     form.elements['vmsg'].value.trim()
+                vemail: form.elements['vemail'].value.trim(),
+                vsub:   form.elements['vsub'].value.trim(),
+                vphone: form.elements['vphone'].value.trim(),
+                vmsg:   form.elements['vmsg'].value.trim()
             };
 
             try {

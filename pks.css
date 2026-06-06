@@ -98,6 +98,22 @@ header {
     }
 }
 
+@media (max-width: 768px) {
+    .navigation {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .navigation a {
+        font-size: 0.72em;
+        margin: 0 1px;
+        padding: 4px 5px;
+        white-space: nowrap;
+    }
+}
+
 h2 {
     text-align: center;
 }
@@ -358,8 +374,8 @@ h2 {
     }
 
     .arm {
-        top: calc(-78% + 5px);
-        left: calc(13% - 13px);
+        top: calc(-78% + 4px);
+        left: calc(13% - 15px);
         transform-origin: 146px 97px;
     }
 }

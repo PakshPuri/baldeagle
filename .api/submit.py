@@ -17,10 +17,10 @@ class handler(BaseHTTPRequestHandler):
             self._respond(400, {'error': 'Invalid JSON'})
             return
 
-        visitor_email   = data.get('visitor_email', '').strip()
-        email_subject   = data.get('email_subject', '').strip()
-        visitor_phone   = data.get('visitor_phone', 'Not provided').strip()
-        visitor_message = data.get('visitor_message', '').strip()
+        visitor_email   = (data.get('visitor_email') or data.get('vemail') or '').strip()
+        email_subject   = (data.get('email_subject') or data.get('vsub') or '').strip()
+        visitor_phone   = (data.get('visitor_phone') or data.get('vphone') or 'Not provided').strip()
+        visitor_message = (data.get('visitor_message') or data.get('vmsg') or '').strip()
 
         if not all([visitor_email, email_subject, visitor_message]):
             self._respond(400, {'error': 'Missing required fields'})

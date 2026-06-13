@@ -199,3 +199,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+document.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+});
+
+document.addEventListener('keydown', (event) => {
+    const isModifier = event.ctrlKey || event.metaKey;
+    const isShift = event.shiftKey;
+    const key = event.key.toLowerCase();
+
+    if (event.key === 'F12') {
+        event.preventDefault();
+    }
+    if (isModifier && isShift && key === 'i') {
+        event.preventDefault();
+    }
+    if (isModifier && isShift && key === 'j') {
+        event.preventDefault();
+    }
+    if (isModifier && key === 'u') {
+        event.preventDefault();
+    }
+});

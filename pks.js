@@ -199,3 +199,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+// Only run these after DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Disable right-click
+    document.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+    });
+
+    // Disable inspect shortcuts
+    document.addEventListener('keydown', (event) => {
+        const isModifier = event.ctrlKey || event.metaKey;
+        const isShift = event.shiftKey;
+        const key = event.key.toLowerCase();
+
+        if (event.key === 'F12' || 
+            (isModifier && isShift && key === 'i') ||
+            (isModifier && isShift && key === 'j') ||
+            (isModifier && key === 'u')) {
+            event.preventDefault();
+        }
+    });
+});
